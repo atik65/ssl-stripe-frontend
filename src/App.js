@@ -1,22 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const [product, setProdcut] = useState({
+    name: "React Course",
+    price: 50,
+    quantity: 2,
+  });
+  const [clientSecret, setClientSecret] = useState("");
+  const handleStripePayment = () => {
+    axios
+      .post("http://localhost:5000/create-checkout-session", {
+        product,
+      })
+      .then((res) => {
+        window.location = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleSsl = () => {
+    axios
+      .post("http://localhost:5000/sslcommerz", {
+        product,
+      })
+      .then((res) => {
+        window.location = res.data;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <button className="btn btn-primary" onClick={handleStripePayment}>
+          Pay with Stripe
+        </button>
+        <button className="btn btn-primary my-3" onClick={handleSsl}>
+          Pay with SSL Commerz
+        </button>
       </header>
     </div>
   );
