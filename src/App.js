@@ -13,7 +13,7 @@ function App() {
   const [clientSecret, setClientSecret] = useState("");
   const handleStripePayment = () => {
     axios
-      .post("http://localhost:5000/create-checkout-session", {
+      .post("https://frozen-sea-04813.herokuapp.com/create-checkout-session", {
         product,
       })
       .then((res) => {
@@ -26,7 +26,7 @@ function App() {
 
   const handleSsl = () => {
     axios
-      .post("http://localhost:5000/sslcommerz", {
+      .post("https://frozen-sea-04813.herokuapp.com/sslcommerz", {
         product,
       })
       .then((res) => {
